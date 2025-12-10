@@ -60,8 +60,10 @@ YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp s�
 
 ## Veri Hazırlama (Kaggle)
 Kaynaklar: `sumn2u/garbage-classification-v2`, `feyzazkefe/trashnet`  
-  https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
-  https://www.kaggle.com/datasets/feyzazkefe/trashnet
+
+ " https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
+  https://www.kaggle.com/datasets/feyzazkefe/trashnet"
+  
 Hedef sınıflar: `battery, biological, cardboard, clothes, glass, metal, paper, plastic, shoes, trash`
 
 Önkoşul: `~/.kaggle/kaggle.json` veya `KAGGLE_USERNAME/KAGGLE_KEY` ortam değişkenleri.
