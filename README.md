@@ -1,4 +1,4 @@
-## VOLO-E Akıllı Geri Dönüşüm <img src="assets/1.png" alt="Mascot" width="110" align="right" />
+## VOLO-E Akıllı Geri Dönüşüm <img src="assets/1.png" alt="Mascot" width="80" align="right" />
 
 YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp sınıflayan, Tkinter arayüzlü masaüstü uygulaması.
 
