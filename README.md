@@ -6,14 +6,14 @@ YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp s�
 | --- | --- |
 | ![GUI](assets/gui.png) | ![Output](assets/output.png) |
 
-## Özellikler
+## Özellikler <img src="assets/2.png" alt="Mascot" width="80" align="right" />
 - ✅ YOLO tabanlı atık tespiti + SimpleCNN sınıflandırma (10 sınıf).
 - 🖥️ Tkinter GUI: model seç, hassasiyet kaydır, tek tıkla çalıştır.
 - 📝 Annotated çıktı (`output_infer`) + JSON tespit listesi.
 - 📦 Otomatik veri hazırlama (Kaggle birleşik seti).
 - ⬇️ Kolay model indirme (Google Drive → `models/classifier/model`).
 
-## Proje Yapısı
+## Proje Yapısı <img src="assets/3.png" alt="Mascot" width="80" align="right" />
 - `main_gui.py` : Masaüstü arayüz (Tkinter), `inference.py` ile çalışır.
 - `inference.py` : YOLO dedektör + sınıflandırıcı inference (dinamik çizim, pad/normalize).
 - `main_training.py` : Sıfırdan sınıflandırıcı eğitimi (SimpleCNN, `output_short/`).
@@ -30,7 +30,7 @@ YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp s�
   `torch torchvision pillow pandas scikit-learn matplotlib seaborn ultralytics kaggle gdown opencv-python`
 - GPU varsa PyTorch’un CUDA’lı sürümünü tercih edin.
 
-## Hızlı Başlangıç (Inference)
+## Hızlı Başlangıç (Inference) <img src="assets/4.png" alt="Mascot" width="80" align="right" />
 1) Modelleri hazırla  
    - Dedektör: `models/detector/best_yolo.pt` repoda hazır.  
    - **Sınıflandırıcı: Büyük boyutlu, GitHub’da yok. İndirmek zorunlu.**  
@@ -58,12 +58,12 @@ YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp s�
    ```
    Çıktılar: `output_infer/<isim>_annotated.png`, `output_infer/<isim>_detections.json`.
 
-## Veri Hazırlama (Kaggle)
+## Veri Hazırlama (Kaggle) <img src="assets/5.png" alt="Mascot" width="80" align="right" />
 Kaynaklar: `sumn2u/garbage-classification-v2`, `feyzazkefe/trashnet`  
-
- " https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
-  https://www.kaggle.com/datasets/feyzazkefe/trashnet"
-  
+```
+https://www.kaggle.com/datasets/sumn2u/garbage-classification-v2
+https://www.kaggle.com/datasets/feyzazkefe/trashnet
+```
 Hedef sınıflar: `battery, biological, cardboard, clothes, glass, metal, paper, plastic, shoes, trash`
 
 Önkoşul: `~/.kaggle/kaggle.json` veya `KAGGLE_USERNAME/KAGGLE_KEY` ortam değişkenleri.
@@ -85,7 +85,7 @@ Kural: Her sınıfta önce 75 görsel test için ayrılır, kalan 80/20 train/va
   ```
   Girdi checkpoint’i: `output_model/best_model.pt` (varsa), çıktı: `output_ekstra/`.
 
-## Performans Özeti (Classifier)
+## Performans Özeti (Classifier) <img src="assets/6.png" alt="Mascot" width="80" align="right" />
 - Val en iyi: `acc ≈ 0.8685`, `val_loss ≈ 0.45`
 - Test: `acc ≈ 0.857`, `macro F1 ≈ 0.858` (750 örnek)
 - ROC-AUC: 0.97–0.99 aralığı (10 sınıf)
