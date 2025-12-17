@@ -179,10 +179,14 @@ def detect_and_classify(
 
     # Görseli oku ve dedektör için ölçekle
     image_bgr_orig = cv2.imread(str(image_path))
+    h_orig, w_orig = image_bgr_orig.shape[:2]
     det_image, scale = resize_for_detection(image_bgr_orig, MAX_DET_SIDE)
+    h_det, w_det = det_image.shape[:2]
 
-    det_results = detector(det_image, conf=conf_thres, imgsz=MAX_DET_SIDE, verbose=False)[0]
-    h, w = image_bgr_orig.shape[:2]
+    # YOLO'ya resize edilmiş görüntüyü verirken imgsz parametresini kaldır
+    # Çünkü görüntü zaten resize edilmiş, YOLO'nun tekrar resize yapmasını istemiyoruz
+    det_results = detector(det_image, conf=conf_thres, verbose=False)[0]
+    h, w = h_orig, w_orig
     detections = []
     
     # Dinamik font ve çizgi kalınlığı (OR mantığı: max(w, h))
@@ -193,12 +197,30 @@ def detect_and_classify(
     for box, det_conf in zip(det_results.boxes.xyxy, det_results.boxes.conf):
         x1, y1, x2, y2 = box.tolist()
 
+        # YOLO koordinatları resize edilmiş görüntüye göre olmalı
+        # Önce resize edilmiş görüntü sınırlarına kısıtla
+        x1 = max(0.0, min(x1, w_det - 1))
+        y1 = max(0.0, min(y1, h_det - 1))
+        x2 = max(0.0, min(x2, w_det - 1))
+        y2 = max(0.0, min(y2, h_det - 1))
+        
         # Ölçek geri al (det_image -> orijinal)
         x1, y1, x2, y2 = [coord / scale for coord in [x1, y1, x2, y2]]
 
+        # Orijinal görüntü sınırlarına kısıtla
+        x1 = max(0.0, min(x1, w - 1))
+        y1 = max(0.0, min(y1, h - 1))
+        x2 = max(0.0, min(x2, w - 1))
+        y2 = max(0.0, min(y2, h - 1))
+        
+        # Tamsayıya çevir ve tekrar kontrol et
         x1i, y1i, x2i, y2i = map(int, [x1, y1, x2, y2])
         x1i, y1i = max(0, x1i), max(0, y1i)
         x2i, y2i = min(w - 1, x2i), min(h - 1, y2i)
+        
+        # Bounding box geçerli mi kontrol et (genişlik/yükseklik > 0)
+        if x2i <= x1i or y2i <= y1i:
+            continue
 
         crop = image_bgr_orig[y1i:y2i, x1i:x2i]
         if crop.size == 0:
