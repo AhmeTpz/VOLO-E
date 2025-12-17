@@ -1,4 +1,5 @@
 import threading
+import random
 from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
@@ -87,12 +88,13 @@ class App:
     def load_mascots(self):
         """Maskot görsellerini yükle ve küçük boyuta getir"""
         imgs = []
-        for i in range(1, 7):
+        for i in range(1, 14):  # 1'den 13'e kadar (6.png - 13.png dahil)
             p = ASSETS_DIR / f"{i}.png"
-            img = Image.open(p).convert("RGBA")
-            # Maskot boyutunu küçült
-            img_resized = img.resize(MASCOT_SIZE, Image.Resampling.LANCZOS)
-            imgs.append(img_resized)
+            if p.exists():
+                img = Image.open(p).convert("RGBA")
+                # Maskot boyutunu küçült
+                img_resized = img.resize(MASCOT_SIZE, Image.Resampling.LANCZOS)
+                imgs.append(img_resized)
         return imgs
 
     def blend_transition(self, target_idx, steps=8, delay=40):
@@ -285,7 +287,12 @@ class App:
             self.root.after(0, self.on_inference_error, str(e))
 
     def on_inference_done(self, img, dets):
-        self.set_mascot(5)  # çıktı açılınca 6. görsel
+        # Rastgele bir başarı görseli seç (6.png - 13.png arası, index 5-12)
+        if len(self.mascot_images) > 5:
+            random_idx = random.randint(5, min(12, len(self.mascot_images) - 1))
+            self.set_mascot(random_idx)
+        else:
+            self.set_mascot(5)  # Fallback: 6. görsel
         show_image_in_window(img, title="Çıktı")
         self.run_btn.configure(state="normal")
 

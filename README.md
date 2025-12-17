@@ -24,13 +24,13 @@ YOLO dedektör + PyTorch sınıflandırıcı ile katı atıkları algılayıp s�
 - `test_images/` : Hızlı deneme görselleri.
 - `assets/` : Arka plan, GUI, örnek çıktı ve maskotlar.
 
-## Gereksinimler
+## Gereksinimler <img src="assets/8.png" alt="Mascot" width="80" align="right" />
 - Python 3.9+
 - Önerilen paketler (`requirements.txt` yoksa manuel kur):  
   `torch torchvision pillow pandas scikit-learn matplotlib seaborn ultralytics kaggle gdown opencv-python`
 - GPU varsa PyTorch’un CUDA’lı sürümünü tercih edin.
 
-## Hızlı Başlangıç (Inference) <img src="assets/4.png" alt="Mascot" width="80" align="right" />
+## Hızlı Başlangıç (Inference) <img src="assets/13.png" alt="Mascot" width="80" align="right" />
 1) Modelleri hazırla  
    - Dedektör: `models/detector/best_yolo.pt` repoda hazır.  
    - **Sınıflandırıcı: Büyük boyutlu, GitHub’da yok. İndirmek zorunlu.**  
@@ -72,7 +72,7 @@ python prepare_kaggle_datasets.py --out_dir dataset
 ```
 Kural: Her sınıfta önce 75 görsel test için ayrılır, kalan 80/20 train/validation bölünür.
 
-## Eğitim
+## Eğitim <img src="assets/12.png" alt="Mascot" width="80" align="right" />
 - Sıfırdan eğitim:  
   ```bash
   python main_training.py
@@ -91,12 +91,12 @@ Kural: Her sınıfta önce 75 görsel test için ayrılır, kalan 80/20 train/va
 - ROC-AUC: 0.97–0.99 aralığı (10 sınıf)
 - En sık karışanlar: `glass ↔ plastic`, `trash ↔ plastic`, `metal ↔ glass`
 
-## İpuçları
-- GUI’de dedektör yolu sabit: `models/detector/best_yolo.pt`. Değiştirecekseniz `DEFAULT_DETECTOR` (inference.py) değerini güncelleyin.
+## İpuçları <img src="assets/7.png" alt="Mascot" width="80" align="right" />
+- GUI'de dedektör yolu sabit: `models/detector/best_yolo.pt`. Değiştirecekseniz `DEFAULT_DETECTOR` (inference.py) değerini güncelleyin.
 - Sınıf isimleri `summary.json` içinde; farklı model kullanırken aynı sınıf sırasını koruyun.
 - Küçük crop’lar otomatik atlanır (`MIN_CROP_SKIP=32`), font/çizgi kalınlığı görsel boyutuna göre ayarlanır.
 - Örnek test görselleri `test_images/` klasöründe; sonuçlar `output_infer/`.
 
-## Lisans
+## Lisans <img src="assets/4.png" alt="Mascot" width="80" align="right" />
 Bu depo içindeki kodlar eğitim/demonstrasyon amaçlıdır; veri setlerinin lisanslarına ve model ağırlıklarının haklarına dikkat edin.
 
